@@ -5,6 +5,8 @@ const cors = require("cors");
 const PORT = process.env.PORT || 5050;
 
 const authRouter = require("./auth/auth.routes");
+const passport = require("passport");
+const session = require("express-session");
 
 const app = express();
 const http = require("http").Server(app);
@@ -13,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/auth", authRouter);
+app.use(session());
 
 const socketIO = require("socket.io")(http, {
   cors: {
